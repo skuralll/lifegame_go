@@ -41,9 +41,10 @@ func initialize() {
 func update() {
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			cs[y][x] = rand.Intn(2) == 1
+			ncs[y][x] = rand.Intn(2) == 1
 		}
 	}
+	cs = ncs
 }
 
 // 指定したセルの周囲の生存セル数を取得
