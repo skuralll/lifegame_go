@@ -5,11 +5,13 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"time"
 )
 
 const (
 	width  = 10
 	height = 10
+	rate   = 200 // 更新頻度(ミリ秒)
 )
 
 type cells [width][height]bool
@@ -18,8 +20,12 @@ var cs, ncs cells
 
 func main() {
 	initialize()
-	clearScreen()
-	render()
+	for {
+		clearScreen()
+		render()
+		time.Sleep(rate * time.Millisecond)
+		update()
+	}
 }
 
 // 盤面初期化
@@ -29,6 +35,11 @@ func initialize() {
 			cs[y][x] = rand.Intn(2) == 1
 		}
 	}
+}
+
+// 盤面更新
+func update() {
+	initialize()
 }
 
 // 盤面描画
