@@ -41,7 +41,23 @@ func initialize() {
 func update() {
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			ncs[y][x] = rand.Intn(2) == 1
+			cnt := coutAroundLives(x, y)
+			// 誕生
+			if !cs[y][x] && cnt == 3 {
+				ncs[y][x] = true
+			}
+			// 生存
+			if cs[y][x] && (cnt == 2 || cnt == 3) {
+				ncs[y][x] = true
+			}
+			// 過疎
+			if cs[y][x] && cnt <= 1 {
+				ncs[y][x] = false
+			}
+			// 過密
+			if cs[y][x] && 4 <= cnt {
+				ncs[y][x] = false
+			}
 		}
 	}
 	cs = ncs
