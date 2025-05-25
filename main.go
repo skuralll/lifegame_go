@@ -39,7 +39,26 @@ func initialize() {
 
 // 盤面更新
 func update() {
-	initialize()
+	for y := 0; y < height; y++ {
+		for x := 0; x < width; x++ {
+			cs[y][x] = rand.Intn(2) == 1
+		}
+	}
+}
+
+// 指定したセルの周囲の生存セル数を取得
+func coutAroundLives(x int, y int) int {
+	cnt := 0
+	for dy := -1; dy < 2; dy++ {
+		for dx := -1; dx < 2; dx++ {
+			cx := x + dx
+			cy := y + dy
+			if 0 <= cx && cx < width && 0 <= cy && cy < height && cs[cy][cx] {
+				cnt++
+			}
+		}
+	}
+	return cnt
 }
 
 // 盤面描画
