@@ -1,0 +1,35 @@
+openapi: '3.0.3'
+info:
+  title: ライフゲームサーバ
+  version: '1.0'
+servers:
+  - url: https://localhost/v1
+paths:
+  /next:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Board'
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Board:
+      type: object
+      properties:
+        width:
+          type: integer
+        height:
+          type: integer
+        cells:
+          type: array
+          items:
+            type: integer
+      required:
+        - width
+        - height
+        - cells
