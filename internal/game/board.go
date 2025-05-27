@@ -8,13 +8,16 @@ type Board struct {
 
 // Boardをディープコピーして返す
 func (b Board) Copy() *Board {
-	height, width := len(b.Cells), len(b.Cells[0])
-	newCells := make([][]int, height)
+	newCells := make([][]int, b.Height)
 	for i := range newCells {
-		newCells[i] = make([]int, width)
+		newCells[i] = make([]int, b.Width)
 		copy(newCells[i], b.Cells[i])
 	}
-	return &Board{Cells: newCells}
+	return &Board{
+		Width:  b.Width,
+		Height: b.Height,
+		Cells:  newCells,
+	}
 }
 
 // 初期化された盤面を取得する(全ての要素が0)
@@ -27,5 +30,9 @@ func NewBoard(width int, height int) *Board {
 		}
 		newCells[i] = row
 	}
-	return &Board{Cells: newCells}
+	return &Board{
+		Width:  width,
+		Height: height,
+		Cells:  newCells,
+	}
 }
