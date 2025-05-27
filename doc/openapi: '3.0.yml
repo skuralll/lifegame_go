@@ -16,20 +16,25 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
 components:
   schemas:
     Board:
       type: object
       properties:
-        width:
-          type: integer
-        height:
-          type: integer
         cells:
           type: array
           items:
-            type: integer
+            type: array
+            items:
+              type: integer
       required:
-        - width
-        - height
         - cells
+      example:
+        cells:
+          - [0, 1, 0]
+          - [1, 1, 1]
+          - [0, 1, 0]
