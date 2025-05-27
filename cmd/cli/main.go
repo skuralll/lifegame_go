@@ -6,17 +6,17 @@ import (
 	"os/exec"
 	"runtime"
 	"time"
+
+	"github.com.skuralll/lifegame_go/internal/game"
 )
 
 const (
-	width  = 10
+	width  = 20
 	height = 10
 	rate   = 200 // 更新頻度(ミリ秒)
 )
 
-type cells [width][height]bool
-
-var cs, ncs cells
+var board *game.Board
 
 func main() {
 	initialize()
@@ -30,59 +30,24 @@ func main() {
 
 // 盤面初期化
 func initialize() {
+	board = game.NewBoard(width, height)
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			cs[y][x] = rand.Intn(2) == 1
+			board.Cells[y][x] = rand.Intn(2)
 		}
 	}
 }
 
 // 盤面更新
 func update() {
-	for y := 0; y < height; y++ {
-		for x := 0; x < width; x++ {
-			cnt := coutAroundLives(x, y)
-			// 誕生
-			if !cs[y][x] && cnt == 3 {
-				ncs[y][x] = true
-			}
-			// 生存
-			if cs[y][x] && (cnt == 2 || cnt == 3) {
-				ncs[y][x] = true
-			}
-			// 過疎
-			if cs[y][x] && cnt <= 1 {
-				ncs[y][x] = false
-			}
-			// 過密
-			if cs[y][x] && 4 <= cnt {
-				ncs[y][x] = false
-			}
-		}
-	}
-	cs = ncs
-}
-
-// 指定したセルの周囲の生存セル数を取得
-func coutAroundLives(x int, y int) int {
-	cnt := 0
-	for dy := -1; dy < 2; dy++ {
-		for dx := -1; dx < 2; dx++ {
-			cx := x + dx
-			cy := y + dy
-			if 0 <= cx && cx < width && 0 <= cy && cy < height && cs[cy][cx] {
-				cnt++
-			}
-		}
-	}
-	return cnt
+	board = board.GetNext()
 }
 
 // 盤面描画
 func render() {
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
-			if cs[y][x] {
+			if board.Cells[y][x] == 1 {
 				print("⬛︎")
 			} else {
 				print("⬜︎")
