@@ -10,11 +10,11 @@ import (
 )
 
 func main() {
-	// Echo instance
+	// Echoのインスタンスを作成
 	e := echo.New()
-	// Register routes
+	// ルートを登録
 	routes.RegisterRoutes(e)
-	// Start Server
+	// サーバーを起動
 	if err := e.Start(":8080"); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		slog.Error("failed to start server", "error", err)
 	}
