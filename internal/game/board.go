@@ -1,8 +1,8 @@
 package game
 
 type Board struct {
-	Width  int
-	Height int
+	Width  int `json:"width"`
+	Height int `json:"height"`
 	Cells  [][]int `json:"cells"`
 }
 
