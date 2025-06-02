@@ -1,7 +1,7 @@
-openapi: '3.0.3'
+openapi: "3.0.3"
 info:
   title: ライフゲームサーバ
-  version: '1.0'
+  version: "1.0"
 servers:
   - url: https://localhost/v1
 paths:
@@ -12,19 +12,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Board'
+              $ref: "#/components/schemas/Board"
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Board'
+                $ref: "#/components/schemas/Board"
 components:
   schemas:
     Board:
       type: object
       properties:
+        width:
+          type: integer
+        height:
+          type: integer
         cells:
           type: array
           items:
@@ -34,6 +38,8 @@ components:
       required:
         - cells
       example:
+        width: 3
+        height: 3
         cells:
           - [0, 1, 0]
           - [1, 1, 1]
