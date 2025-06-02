@@ -1,3 +1,7 @@
 # lifegame-go
 
-A Game of Life implemented in Golang
+This implementation runs in various environments:
+
+- Terminal (CLI)
+- HTTP server
+- Planned: GUI application
