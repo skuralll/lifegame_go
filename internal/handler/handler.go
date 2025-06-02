@@ -19,5 +19,5 @@ func GetNextBoard(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid board data"})
 	}
 
-	return c.JSON(http.StatusOK, board.GetNext());
+	return c.JSON(http.StatusOK, board.GetNext())
 }
