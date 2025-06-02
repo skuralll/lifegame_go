@@ -7,5 +7,5 @@ import (
 
 // エンドポイント登録
 func RegisterRoutes(e *echo.Echo) {
-	e.GET("hello", handler.SayHello)
+	e.GET("/hello", handler.SayHello)
 }
